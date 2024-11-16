@@ -79,5 +79,8 @@ export function extractParams(value: string) {
 
 export function paramsString(params: string[]) {
   if (params.length === 0) return '';
-  return `: ` + params.map((param) => `${param}: ${param}`).join(', ');
+  return `: ` + params.map((param, index) => {
+    const isLast = index === params.length - 1;
+    return `\${${index * 2 + 1}:${param}: \${${index * 2 + 2}:${param}}${isLast ? '' : ','}}`;
+  }).join(' ');
 }

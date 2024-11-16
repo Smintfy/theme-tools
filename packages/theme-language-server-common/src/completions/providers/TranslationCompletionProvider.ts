@@ -11,6 +11,7 @@ import {
 import { findCurrentNode } from '@shopify/theme-check-common';
 import { LiquidCompletionParams } from '../params';
 import { Provider } from './common';
+import { InsertTextFormat } from 'vscode-json-languageservice';
 
 export class TranslationCompletionProvider implements Provider {
   constructor(
@@ -89,6 +90,7 @@ export class TranslationCompletionProvider implements Provider {
         label: quote + path.join('.') + quote + ' | t', // don't want the count here because it feels noisy(?)
         insertText: path.join('.').slice(insertTextStartIndex), // for editors that don't support textEdit
         kind: CompletionItemKind.Field,
+        insertTextFormat: InsertTextFormat.Snippet,
         textEdit: TextEdit.replace(
           replaceRange,
           path.join('.') + postFix + (shouldAppendTranslateFilter ? parameters : ''),
